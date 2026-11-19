@@ -1,6 +1,9 @@
-// app/blog/[slug]/page.jsx
+// app/blog/[slug]/page.jsx (o .tsx)
 export async function generateStaticParams() {
-  const posts = await fetch('https://api.ejemplo.com/posts').then((res) => res.json());
+  const posts = [
+    { slug: 'que-es-nextjs' },
+    { slug: 'aprendiendo-react' },
+  ];
 
   return posts.map((post) => ({
     slug: post.slug,
@@ -9,13 +12,13 @@ export async function generateStaticParams() {
 
 const PostPage = async ({ params }) => {
   const { slug } = await params;
-  const post = await fetch(`https://api.ejemplo.com/posts/${slug}`).then((res) => res.json());
 
   return (
     <article>
-      <h1>{post.titulo}</h1>
-      <p>{post.contenido}</p>
+      <h1>Post: {slug}</h1>
+      <p>Contenido del artículo cargado dinámicamente.</p>
     </article>
   );
 };
+
 export default PostPage;  
